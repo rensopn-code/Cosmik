@@ -561,6 +561,7 @@
       </a>
       <nav class="nav-links">
         <a href="#catalogo">Colección</a>
+        <a href="#sommelier">Sommelier IA ✨</a>
         <a href="#experiencia">Esencia</a>
         <a href="#contacto" class="btn-nav">Contacto</a>
       </nav>
@@ -572,9 +573,88 @@
       <p class="hero-subtitle">AURA & ESENCIA CÓSMICA</p>
       <h1 class="hero-title">Fragancias que dejan una huella imborrable</h1>
       <p class="hero-text">Explora nuestra selección exclusiva de perfumes de alta costura, esencias árabes y notas de lujo.</p>
-      <a href="#catalogo" class="btn-primary">Explorar Colección ✨</a>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="#catalogo" class="btn-primary">Explorar Colección ✨</a>
+        <a href="#sommelier" class="btn-primary" style="background: linear-gradient(135deg, #2A2421, #6E655F);">Consultar Sommelier IA 🤖</a>
+      </div>
     </div>
   </section>
+
+  <section id="sommelier" style="max-width: 1200px; margin: 40px auto 80px; padding: 0 24px;">
+    <div style="background: linear-gradient(135deg, #FFF9F6 0%, #F5E8E2 100%); border-radius: 24px; padding: 40px; border: 1px solid rgba(232, 165, 137, 0.4); box-shadow: var(--shadow-soft);">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 32px;">
+        <span style="background: var(--color-peach-light); color: var(--color-peach-dark); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Inteligencia Olfativa Cosmik</span>
+        <h2 style="font-family: var(--font-serif); font-size: 2.5rem; margin-top: 10px; color: var(--color-text-main);">Sommelier & Creador IA</h2>
+        <p style="color: var(--color-text-muted); font-size: 0.95rem;">Encuentra tu perfume ideal o diseña un concepto olfativo personalizado con nuestro consultor impulsado por inteligencia artificial.</p>
+      </div>
+
+      <!-- Mode Selector Tabs -->
+      <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap;">
+        <button id="tabRecomendador" onclick="cambiarModoAI('recomendador')" style="padding: 10px 22px; border-radius: 20px; border: none; background: var(--color-peach-dark); color: #fff; font-weight: 600; cursor: pointer; font-family: var(--font-sans);">✨ Recomendar Fragancia</button>
+        <button id="tabDiseñador" onclick="cambiarModoAI('diseñador')" style="padding: 10px 22px; border-radius: 20px; border: 1px solid var(--color-peach-dark); background: transparent; color: var(--color-peach-dark); font-weight: 600; cursor: pointer; font-family: var(--font-sans);">🎨 Diseñar Concepto & Botella</button>
+      </div>
+
+      <!-- Mode 1: Recomendador -->
+      <div id="secRecomendador" style="max-width: 700px; margin: 0 auto;">
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--color-text-main);">¿Qué personalidad, ocasión o notas buscas hoy?</label>
+          <textarea id="promptPerfume" rows="3" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #E2D9D5; font-family: var(--font-sans); font-size: 0.95rem; resize: none; outline: none; background: #FFF;" placeholder="Ej: Busco un perfume elegante para una cena de gala en clima cálido, con notas dulces pero amaderadas..."></textarea>
+        </div>
+        
+        <!-- Quick Prompts -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+          <button onclick="setPromptQuick('Perfume sensual y misterioso para una cita nocturna en verano')" style="font-size: 0.78rem; background: #FFF; border: 1px solid var(--color-peach-main); border-radius: 15px; padding: 6px 12px; cursor: pointer; color: var(--color-text-muted);">🌙 Cita Nocturna</button>
+          <button onclick="setPromptQuick('Fragancia fresca y enérgica para uso diario en la oficina')" style="font-size: 0.78rem; background: #FFF; border: 1px solid var(--color-peach-main); border-radius: 15px; padding: 6px 12px; cursor: pointer; color: var(--color-text-muted);">💼 Oficina / Diario</button>
+          <button onclick="setPromptQuick('Aroma exótico estilo árabe con rico oud, ámbar y vainilla')" style="font-size: 0.78rem; background: #FFF; border: 1px solid var(--color-peach-main); border-radius: 15px; padding: 6px 12px; cursor: pointer; color: var(--color-text-muted);">🕌 Árabe & Ámbar</button>
+        </div>
+
+        <button onclick="generarRecomendacionAI()" style="width: 100%; background: linear-gradient(135deg, var(--color-peach-main), var(--color-peach-dark)); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem; box-shadow: 0 4px 14px rgba(196, 123, 95, 0.3);">
+          Consultar al Sommelier ✨
+        </button>
+      </div>
+
+      <!-- Mode 2: Diseñador Custom -->
+      <div id="secDiseñador" style="max-width: 700px; margin: 0 auto; display: none;">
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--color-text-main);">Describe la emoción, paisaje o concepto de tu perfume soñado:</label>
+          <input type="text" id="promptConcepto" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #E2D9D5; font-family: var(--font-sans); font-size: 0.95rem; outline: none; background: #FFF;" placeholder="Ej: Atardecer dorado en la costa mediterránea con brisa marina y azahar">
+        </div>
+
+        <button onclick="diseñarPerfumeAI()" style="width: 100%; background: linear-gradient(135deg, var(--color-text-main), #4A3E39); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);">
+          Crear Fórmula & Botella Artística 🎨
+        </button>
+      </div>
+
+      <!-- Spinner / Status -->
+      <div id="aiLoader" style="display: none; text-align: center; margin-top: 24px;">
+        <div style="display: inline-block; width: 36px; height: 36px; border: 3px solid rgba(196, 123, 95, 0.3); border-radius: 50%; border-top-color: var(--color-peach-dark); animation: spin 0.8s linear infinite;"></div>
+        <p id="aiLoaderTxt" style="font-size: 0.88rem; color: var(--color-peach-dark); font-weight: 500; margin-top: 10px;">Consultando la biblioteca de fragancias...</p>
+      </div>
+
+      <!-- Output Container -->
+      <div id="aiResultado" style="display: none; margin-top: 30px; background: #FFF; border-radius: 16px; padding: 24px; border: 1px solid rgba(232, 165, 137, 0.3); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+          <h3 id="aiResultTitle" style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--color-text-main);">Recomendación Personalizada</h3>
+          <button id="btnEscucharTTS" onclick="reproducirAudioRecomendacion()" style="background: var(--color-peach-light); border: 1px solid var(--color-peach-main); color: var(--color-peach-dark); padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            🔊 Escuchar Sommelier
+          </button>
+        </div>
+        <div id="aiResultBody" style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.7; white-space: pre-line;"></div>
+        
+        <!-- Image Generated Container -->
+        <div id="aiImageWrapper" style="display: none; margin-top: 20px; text-align: center;">
+          <p style="font-size: 0.8rem; font-weight: 600; color: var(--color-peach-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Concepto de Frasco Generado por IA</p>
+          <img id="aiGeneratedImg" style="max-width: 100%; max-height: 350px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.12);" alt="Concepto de Frasco IA">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 
   <main id="catalogo" class="catalog-section">
     <div class="section-title">
@@ -752,6 +832,261 @@
   <script>
     const numeroWhatsApp = "50499998877"; 
     const formspreeURL = "https://formspree.io/f/xwlpalja";
+
+    // Clave de API de Gemini (dejar vacía o configurar según entorno)
+    const apiKey = "";
+
+    let ultimoTextoGenerado = "";
+
+    function setPromptQuick(txt) {
+      document.getElementById('promptPerfume').value = txt;
+    }
+
+    function cambiarModoAI(modo) {
+      const tabRec = document.getElementById('tabRecomendador');
+      const tabDis = document.getElementById('tabDiseñador');
+      const secRec = document.getElementById('secRecomendador');
+      const secDis = document.getElementById('secDiseñador');
+
+      if (modo === 'recomendador') {
+        tabRec.style.background = 'var(--color-peach-dark)';
+        tabRec.style.color = '#fff';
+        tabRec.style.border = 'none';
+
+        tabDis.style.background = 'transparent';
+        tabDis.style.color = 'var(--color-peach-dark)';
+        tabDis.style.border = '1px solid var(--color-peach-dark)';
+
+        secRec.style.display = 'block';
+        secDis.style.display = 'none';
+      } else {
+        tabDis.style.background = 'var(--color-peach-dark)';
+        tabDis.style.color = '#fff';
+        tabDis.style.border = 'none';
+
+        tabRec.style.background = 'transparent';
+        tabRec.style.color = 'var(--color-peach-dark)';
+        tabRec.style.border = '1px solid var(--color-peach-dark)';
+
+        secDis.style.display = 'block';
+        secRec.style.display = 'none';
+      }
+      document.getElementById('aiResultado').style.display = 'none';
+    }
+
+    async function generarRecomendacionAI() {
+      const userQuery = document.getElementById('promptPerfume').value.trim();
+      if (!userQuery) {
+        alert("Por favor ingresa tus preferencias de aroma u ocasión.");
+        return;
+      }
+
+      const loader = document.getElementById('aiLoader');
+      const loaderTxt = document.getElementById('aiLoaderTxt');
+      const resContainer = document.getElementById('aiResultado');
+      const resTitle = document.getElementById('aiResultTitle');
+      const resBody = document.getElementById('aiResultBody');
+      const imgWrapper = document.getElementById('aiImageWrapper');
+
+      loaderTxt.innerText = "Consultando al Sommelier Cosmik...";
+      loader.style.display = 'block';
+      resContainer.style.display = 'none';
+      imgWrapper.style.display = 'none';
+
+      const catalogData = [
+        "Cosmik Celestial Oud (HNL 1,800) - Árabe & Oriental. Salida: Azafrán/Bergamota, Corazón: Rosa de Damasco/Ámbar, Fondo: Oud/Vainilla. Ideal para la noche, lujo, elegancia.",
+        "Aura Velvet Rose (HNL 1,450) - Floral & Dulce. Salida: Frambuesa/Pimienta Rosa, Corazón: Peonía/Rosa Grasse, Fondo: Almizcle Blanco/Cedro. Romántico, delicado, fresco.",
+        "Starlight Santal (HNL 1,600) - Amaderado. Salida: Cardamomo/Violeta, Corazón: Iris/Papiro, Fondo: Sándalo/Cuero. Sofisticado, moderno, unisex, para oficina o eventos."
+      ].join("\n");
+
+      const systemPrompt = `Eres el Sommelier de Alta Perfumería de 'COSMIK'. Tu objetivo es recomendar el perfume perfecto del catálogo de Cosmik en español refinado, cordial y sofisticado.\nCatálogo disponible:\n${catalogData}\n\nInstrucciones:\n1. Recomienda el perfume que mejor encaje del catálogo.\n2. Explica por qué sus notas combinan con la búsqueda del usuario.\n3. Mantén la respuesta elegante y concisa (máximo 120 palabras).`;
+
+      try {
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        const payload = {
+          contents: [{ parts: [{ text: userQuery }] }],
+          systemInstruction: { parts: [{ text: systemPrompt }] }
+        };
+
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No fue posible procesar la recomendación en este momento.";
+
+        ultimoTextoGenerado = text;
+        resTitle.innerText = "Recomendación de nuestro Sommelier ✨";
+        resBody.innerText = text;
+        resContainer.style.display = 'block';
+      } catch (err) {
+        console.error(err);
+        resTitle.innerText = "Error";
+        resBody.innerText = "Hubo un inconveniente al conectar con el Sommelier IA. Por favor intenta de nuevo.";
+        resContainer.style.display = 'block';
+      } finally {
+        loader.style.display = 'none';
+      }
+    }
+
+    async function diseñarPerfumeAI() {
+      const concepto = document.getElementById('promptConcepto').value.trim();
+      if (!concepto) {
+        alert("Por favor escribe una emoción, paisaje o concepto.");
+        return;
+      }
+
+      const loader = document.getElementById('aiLoader');
+      const loaderTxt = document.getElementById('aiLoaderTxt');
+      const resContainer = document.getElementById('aiResultado');
+      const resTitle = document.getElementById('aiResultTitle');
+      const resBody = document.getElementById('aiResultBody');
+      const imgWrapper = document.getElementById('aiImageWrapper');
+      const generatedImg = document.getElementById('aiGeneratedImg');
+
+      loaderTxt.innerText = "Creando pirámide olfativa y generando arte del frasco...";
+      loader.style.display = 'block';
+      resContainer.style.display = 'none';
+      imgWrapper.style.display = 'none';
+
+      const systemPrompt = `Eres un Maestro Perfumista de la casa de lujo COSMIK. Crea un perfume personalizado basado en el concepto del usuario.\nProporciona:\n1. Nombre ficticio lujoso del perfume.\n2. Pirámide Olfativa (Notas de Salida, Corazón y Fondo).\n3. Breve poética de la fragancia. Mantenlo en español elegante y breve.`;
+
+      try {
+        // 1. Text Formula via Gemini 3 Flash
+        const apiUrlText = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        const textPromise = fetch(apiUrlText, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: concepto }] }],
+            systemInstruction: { parts: [{ text: systemPrompt }] }
+          })
+        }).then(r => r.json());
+
+        // 2. Image generation via Gemini 3.1 Flash Lite Image
+        const apiUrlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-image:generateContent?key=${apiKey}`;
+        const imagePrompt = `A luxurious studio product photograph of a high-end perfume bottle designed for: ${concepto}. Crystal glass, elegant gold accents, aesthetic lighting, dark velvet background, 8k luxury design.`;
+        
+        const imgPromise = fetch(apiUrlImg, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: imagePrompt }] }],
+            generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
+          })
+        }).then(r => r.json());
+
+        const [textRes, imgRes] = await Promise.all([textPromise, imgPromise]);
+
+        const textOutput = textRes.candidates?.[0]?.content?.parts?.[0]?.text || "Fórmula creada con éxito.";
+        ultimoTextoGenerado = textOutput;
+
+        resTitle.innerText = "Concepto Olfativo Bóveda Cosmik 🧪";
+        resBody.innerText = textOutput;
+
+        const base64Img = imgRes?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
+        if (base64Img) {
+          generatedImg.src = `data:image/png;base64,${base64Img}`;
+          imgWrapper.style.display = 'block';
+        }
+
+        resContainer.style.display = 'block';
+      } catch (err) {
+        console.error(err);
+        resTitle.innerText = "Error de Creación";
+        resBody.innerText = "No se pudo generar el concepto en este momento. Reintenta en un momento.";
+        resContainer.style.display = 'block';
+      } finally {
+        loader.style.display = 'none';
+      }
+    }
+
+    /* TTS Audio Generator */
+    async function reproducirAudioRecomendacion() {
+      if (!ultimoTextoGenerado) return;
+
+      const btn = document.getElementById('btnEscucharTTS');
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = `⌛ Generando voz...`;
+      btn.disabled = true;
+
+      try {
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+        const payload = {
+          contents: [{ parts: [{ text: `Lee con tono cálido, pausado y elegante de sommelier: ${ultimoTextoGenerado}` }] }],
+          generationConfig: {
+            responseModalities: ["AUDIO"],
+            speechConfig: {
+              voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } }
+            }
+          }
+        };
+
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        const part = data?.candidates?.[0]?.content?.parts?.[0];
+        const audioData = part?.inlineData?.data;
+        const mimeType = part?.inlineData?.mimeType;
+
+        if (audioData && mimeType) {
+          const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+          const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000;
+          
+          const rawBytes = atob(audioData);
+          const pcm16 = new Int16Array(rawBytes.length / 2);
+          for (let i = 0; i < pcm16.length; i++) {
+            pcm16[i] = rawBytes.charCodeAt(i * 2) | (rawBytes.charCodeAt(i * 2 + 1) << 8);
+          }
+
+          const wavBlob = pcmToWav(pcm16, sampleRate);
+          const audioUrl = URL.createObjectURL(wavBlob);
+          const audio = new Audio(audioUrl);
+          audio.play();
+        }
+      } catch (e) {
+        console.error("Error al reproducir audio TTS:", e);
+      } finally {
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+      }
+    }
+
+    function pcmToWav(pcm16, sampleRate) {
+      const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+      const view = new DataView(buffer);
+
+      function writeString(offset, str) {
+        for (let i = 0; i < str.length; i++) {
+          view.setUint8(offset + i, str.charCodeAt(i));
+        }
+      }
+
+      writeString(0, 'RIFF');
+      view.setUint32(4, 36 + pcm16.length * 2, true);
+      writeString(8, 'WAVE');
+      writeString(12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(36, 'data');
+      view.setUint32(40, pcm16.length * 2, true);
+
+      for (let i = 0; i < pcm16.length; i++) {
+        view.setInt16(44 + i * 2, pcm16[i], true);
+      }
+      return new Blob([view], { type: 'audio/wav' });
+    }
 
     function filtrarProductos(categoria, boton) {
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
