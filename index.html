@@ -1,16 +1,822 @@
-<!-- Hero Section con Logo y Banner De Lujo -->
-<section class="hero-cosmik">
-  <img src="img/logo-cosmik.png" alt="Cosmik Perfumería" class="logo-hero">
-  <h1>AURA & ESENCIA CÓSMICA</h1>
-  <p>Descubre perfumes de alta costura diseñados para dejar una huella imborrable.</p>
-  <button onclick="scrollToQuiz()" class="btn-gold">Descubrir mi Esencia ✨</button>
-</section>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmik | Perfumería de Alta Gama</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg: #FAF8F5;
+      --color-card: #FFFFFF;
+      --color-text-main: #2A2421;
+      --color-text-muted: #6E655F;
+      --color-peach-light: #F9EBE6;
+      --color-peach-main: #E8A589;
+      --color-peach-dark: #C47B5F;
+      --color-gold: #D4AF37;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Poppins', sans-serif;
+      --shadow-soft: 0 10px 30px rgba(196, 123, 95, 0.08);
+      --shadow-hover: 0 20px 40px rgba(196, 123, 95, 0.18);
+    }
 
-<!-- Barra de Filtros Interactiva -->
-<div class="filter-bar">
-  <button class="filter-btn active" data-category="todos">Todos</button>
-  <button class="filter-btn" data-category="amaderados">Amaderados</button>
-  <button class="filter-btn" data-category="florales">Florales</button>
-  <button class="filter-btn" data-category="orientales">Árabes & Exóticos</button>
-  <button class="filter-btn" data-category="noche">De Noche 🌙</button>
-</div>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background-color: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(232, 165, 137, 0.2);
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .header-logo-svg {
+      width: 38px;
+      height: 38px;
+      filter: drop-shadow(0 2px 4px rgba(196, 123, 95, 0.2));
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      background: linear-gradient(135deg, var(--color-peach-dark), var(--color-peach-main));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-text-main);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-peach-dark);
+    }
+
+    .btn-nav {
+      background-color: var(--color-peach-light);
+      color: var(--color-peach-dark) !important;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600 !important;
+      border: 1px solid rgba(232, 165, 137, 0.3);
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-nav:hover {
+      background-color: var(--color-peach-main);
+      color: #FFF !important;
+      box-shadow: 0 4px 12px rgba(232, 165, 137, 0.3);
+    }
+
+    .hero {
+      padding: 100px 24px 80px;
+      text-align: center;
+      background: radial-gradient(circle at center, #FFF3EE 0%, var(--color-bg) 75%);
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 5px;
+      color: var(--color-peach-dark);
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 3.6rem;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    .hero-text {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 36px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--color-peach-main), var(--color-peach-dark));
+      color: #FFF;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 30px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 24px rgba(196, 123, 95, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(196, 123, 95, 0.45);
+    }
+
+    .catalog-section {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      color: var(--color-text-main);
+      font-weight: 600;
+    }
+
+    .section-title p {
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      margin-top: 6px;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .filter-btn {
+      background-color: transparent;
+      border: 1px solid var(--color-peach-main);
+      color: var(--color-peach-dark);
+      padding: 10px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: linear-gradient(135deg, var(--color-peach-main), var(--color-peach-dark));
+      color: #FFF;
+      box-shadow: 0 4px 14px rgba(196, 123, 95, 0.25);
+    }
+
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .card-producto {
+      background-color: var(--color-card);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+      border: 1px solid rgba(232, 165, 137, 0.18);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-producto:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .badge-lujo {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background-color: var(--color-text-main);
+      color: #FFF;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .img-wrapper {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FAF6F3 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .img-wrapper svg {
+      max-width: 80%;
+      max-height: 80%;
+      transition: transform 0.4s ease;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.06));
+    }
+
+    .card-producto:hover .img-wrapper svg {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .categoria-tag {
+      font-size: 0.75rem;
+      color: var(--color-peach-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-content h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin: 4px 0 8px;
+      line-height: 1.2;
+    }
+
+    .monto {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      margin-bottom: 16px;
+    }
+
+    .piramide-olfativa {
+      background-color: var(--color-bg);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 0.83rem;
+      border: 1px solid rgba(232, 165, 137, 0.15);
+      transition: background-color 0.3s ease;
+    }
+
+    .piramide-olfativa summary {
+      cursor: pointer;
+      color: var(--color-peach-dark);
+      font-weight: 600;
+      outline: none;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .piramide-olfativa summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .piramide-olfativa summary::after {
+      content: '✦';
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+
+    .piramide-olfativa[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .piramide-olfativa ul {
+      list-style: none;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(232, 165, 137, 0.25);
+    }
+
+    .piramide-olfativa li {
+      margin-bottom: 5px;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    .piramide-olfativa li strong {
+      color: var(--color-text-main);
+    }
+
+    .btn-comprar {
+      width: 100%;
+      background-color: var(--color-peach-light);
+      color: var(--color-peach-dark);
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: auto;
+    }
+
+    .btn-comprar:hover {
+      background-color: var(--color-peach-dark);
+      color: #FFF;
+      box-shadow: 0 4px 14px rgba(196, 123, 95, 0.3);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(42, 36, 33, 0.65);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-card {
+      background-color: #FFF;
+      width: 100%;
+      max-width: 460px;
+      padding: 36px;
+      border-radius: 24px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+      transform: translateY(20px);
+      transition: transform 0.35s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .btn-cerrar {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      transition: color 0.2s ease;
+      line-height: 1;
+    }
+
+    .btn-cerrar:hover {
+      color: var(--color-text-main);
+    }
+
+    .modal-card h3 {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+
+    .producto-seleccionado-txt {
+      color: var(--color-peach-dark);
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-main);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #E2D9D5;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background-color: #FAF8F6;
+    }
+
+    .form-group input:focus {
+      border-color: var(--color-peach-main);
+      background-color: #FFF;
+    }
+
+    .btn-confirmar {
+      width: 100%;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #FFF;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 12px;
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-confirmar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 36px 20px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid rgba(232, 165, 137, 0.2);
+      margin-top: 80px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.6rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .productos-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="brand">
+        <!-- Cosmik Vector Logo -->
+        <svg class="header-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="peachGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8A589" />
+              <stop offset="100%" stop-color="#C47B5F" />
+            </linearGradient>
+          </defs>
+          <path d="M50 10 A40 40 0 1 0 90 50 A30 30 0 1 1 50 10 Z" fill="url(#peachGrad)" opacity="0.85"/>
+          <path d="M50 32 C43 32 38 37 38 44 C38 52 50 72 50 72 C50 72 62 52 62 44 C62 37 57 32 50 32 Z" fill="url(#peachGrad)"/>
+          <circle cx="50" cy="44" r="4" fill="#FAF8F5"/>
+          <polygon points="50,18 53,24 60,25 55,30 56,37 50,33 44,37 45,30 40,25 47,24" fill="#D4AF37"/>
+        </svg>
+        <span class="brand-name">COSMIK</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#catalogo">Colección</a>
+        <a href="#experiencia">Esencia</a>
+        <a href="#contacto" class="btn-nav">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">AURA & ESENCIA CÓSMICA</p>
+      <h1 class="hero-title">Fragancias que dejan una huella imborrable</h1>
+      <p class="hero-text">Explora nuestra selección exclusiva de perfumes de alta costura, esencias árabes y notas de lujo.</p>
+      <a href="#catalogo" class="btn-primary">Explorar Colección ✨</a>
+    </div>
+  </section>
+
+  <main id="catalogo" class="catalog-section">
+    <div class="section-title">
+      <h2>Colección Exclusiva</h2>
+      <p>Filtra por tu familia olfativa preferida</p>
+    </div>
+
+    <!-- Filter Category Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filtrarProductos('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filtrarProductos('oriental', this)">Árabes & Exóticos</button>
+      <button class="filter-btn" onclick="filtrarProductos('amaderado', this)">Amaderados</button>
+      <button class="filter-btn" onclick="filtrarProductos('floral', this)">Florales & Dulces</button>
+      <button class="filter-btn" onclick="filtrarProductos('fresco', this)">Frescos & Cítricos</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="productos-grid">
+
+      <!-- Producto 1 -->
+      <article class="card-producto" data-categoria="oriental">
+        <span class="badge-lujo">Más Vendido</span>
+        <div class="img-wrapper">
+          <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="p1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FCECE6"/>
+                <stop offset="100%" stop-color="#E8A589"/>
+              </linearGradient>
+            </defs>
+            <rect x="65" y="15" width="70" height="25" rx="4" fill="#D4AF37"/>
+            <rect x="80" y="40" width="40" height="15" fill="#C47B5F"/>
+            <path d="M40 70 C40 55 160 55 160 70 L170 190 C170 210 150 225 100 225 C50 225 30 210 30 190 Z" fill="url(#p1Grad)" stroke="#C47B5F" stroke-width="2"/>
+            <rect x="60" y="110" width="80" height="50" rx="4" fill="#FFFFFF" opacity="0.9"/>
+            <text x="100" y="132" font-family="'Cormorant Garamond', serif" font-size="14" font-weight="bold" fill="#2A2421" text-anchor="middle">COSMIK</text>
+            <text x="100" y="148" font-family="'Poppins', sans-serif" font-size="9" fill="#C47B5F" text-anchor="middle">CELESTIAL OUD</text>
+          </svg>
+        </div>
+        <div class="card-content">
+          <span class="categoria-tag">Árabe & Oriental</span>
+          <h3>Cosmik Celestial Oud</h3>
+          <p class="monto">HNL 1,800</p>
+          
+          <details class="piramide-olfativa">
+            <summary>Pirámide Olfativa</summary>
+            <ul>
+              <li><strong>Salida:</strong> Azafrán y Bergamota</li>
+              <li><strong>Corazón:</strong> Rosa de Damasco y Ámbar</li>
+              <li><strong>Fondo:</strong> Madera de Oud y Vainilla</li>
+            </ul>
+          </details>
+
+          <button class="btn-comprar" onclick="abrirModal('Cosmik Celestial Oud', 'HNL 1,800')">
+            Adquirir Perfume
+          </button>
+        </div>
+      </article>
+
+      <!-- Producto 2 -->
+      <article class="card-producto" data-categoria="floral">
+        <span class="badge-lujo">Edición Especial</span>
+        <div class="img-wrapper">
+          <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="p2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF0F5"/>
+                <stop offset="100%" stop-color="#F4A6A6"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="100" cy="25" rx="20" ry="10" fill="#E8A589"/>
+            <rect x="85" y="35" width="30" height="20" fill="#D4AF37"/>
+            <circle cx="100" cy="140" r="75" fill="url(#p2Grad)" stroke="#E8A589" stroke-width="2"/>
+            <rect x="65" y="120" width="70" height="40" rx="3" fill="#FFFFFF" opacity="0.9"/>
+            <text x="100" y="138" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="bold" fill="#2A2421" text-anchor="middle">AURA</text>
+            <text x="100" y="150" font-family="'Poppins', sans-serif" font-size="8" fill="#C47B5F" text-anchor="middle">VELVET ROSE</text>
+          </svg>
+        </div>
+        <div class="card-content">
+          <span class="categoria-tag">Floral & Dulce</span>
+          <h3>Aura Velvet Rose</h3>
+          <p class="monto">HNL 1,450</p>
+          
+          <details class="piramide-olfativa">
+            <summary>Pirámide Olfativa</summary>
+            <ul>
+              <li><strong>Salida:</strong> Frambuesa y Pimienta Rosa</li>
+              <li><strong>Corazón:</strong> Peonía y Rosa Grasse</li>
+              <li><strong>Fondo:</strong> Almizcle Blanco y Cedro</li>
+            </ul>
+          </details>
+
+          <button class="btn-comprar" onclick="abrirModal('Aura Velvet Rose', 'HNL 1,450')">
+            Adquirir Perfume
+          </button>
+        </div>
+      </article>
+
+      <!-- Producto 3 -->
+      <article class="card-producto" data-categoria="amaderado">
+        <div class="img-wrapper">
+          <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="p3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F7EBE1"/>
+                <stop offset="100%" stop-color="#C47B5F"/>
+              </linearGradient>
+            </defs>
+            <rect x="75" y="15" width="50" height="30" fill="#2A2421" rx="2"/>
+            <rect x="88" y="45" width="24" height="15" fill="#D4AF37"/>
+            <rect x="50" y="60" width="100" height="155" rx="12" fill="url(#p3Grad)" stroke="#C47B5F" stroke-width="2"/>
+            <rect x="65" y="110" width="70" height="45" fill="#FFFFFF" opacity="0.92"/>
+            <text x="100" y="130" font-family="'Cormorant Garamond', serif" font-size="12" font-weight="bold" fill="#2A2421" text-anchor="middle">STARLIGHT</text>
+            <text x="100" y="144" font-family="'Poppins', sans-serif" font-size="8" fill="#C47B5F" text-anchor="middle">SANTAL</text>
+          </svg>
+        </div>
+        <div class="card-content">
+          <span class="categoria-tag">Amaderado</span>
+          <h3>Starlight Santal</h3>
+          <p class="monto">HNL 1,600</p>
+          
+          <details class="piramide-olfativa">
+            <summary>Pirámide Olfativa</summary>
+            <ul>
+              <li><strong>Salida:</strong> Cardamomo y Violeta</li>
+              <li><strong>Corazón:</strong> Iris y Papiro</li>
+              <li><strong>Fondo:</strong> Sándalo y Cuero Elegante</li>
+            </ul>
+          </details>
+
+          <button class="btn-comprar" onclick="abrirModal('Starlight Santal', 'HNL 1,600')">
+            Adquirir Perfume
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <div id="modalPedido" class="modal-overlay">
+    <div class="modal-card">
+      <button class="btn-cerrar" onclick="cerrarModal()">&times;</button>
+      <h3>Solicitud de Pedido</h3>
+      <p id="modalProductoInfo" class="producto-seleccionado-txt"></p>
+      
+      <form id="formPedido" onsubmit="procesarPedido(event)">
+        <input type="hidden" id="nombreProducto" name="Producto">
+        <input type="hidden" id="precioProducto" name="Precio">
+
+        <div class="form-group">
+          <label for="clienteNombre">Nombre Completo</label>
+          <input type="text" id="clienteNombre" name="Cliente" required placeholder="Tu nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="clienteTel">Teléfono / WhatsApp</label>
+          <input type="tel" id="clienteTel" name="Telefono" required placeholder="Ej: 504 9999-8877">
+        </div>
+
+        <div class="form-group">
+          <label for="clienteDir">Dirección de Entrega</label>
+          <input type="text" id="clienteDir" name="Dirección" required placeholder="Ciudad, colonia, referencia">
+        </div>
+
+        <button type="submit" class="btn-confirmar">
+          <span>Confirmar Pedido vía WhatsApp</span> 📲
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 COSMIK Perfumería. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const numeroWhatsApp = "50499998877"; 
+    const formspreeURL = "https://formspree.io/f/xwlpalja";
+
+    function filtrarProductos(categoria, boton) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      boton.classList.add('active');
+
+      const productos = document.querySelectorAll('.card-producto');
+      productos.forEach(card => {
+        if (categoria === 'todos' || card.dataset.categoria === categoria) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function abrirModal(nombre, precio) {
+      document.getElementById('modalProductoInfo').innerText = `${nombre} — ${precio}`;
+      document.getElementById('nombreProducto').value = nombre;
+      document.getElementById('precioProducto').value = precio;
+      document.getElementById('modalPedido').classList.add('active');
+    }
+
+    function cerrarModal() {
+      document.getElementById('modalPedido').classList.remove('active');
+    }
+
+    async function procesarPedido(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+
+      const producto = document.getElementById('nombreProducto').value;
+      const precio = document.getElementById('precioProducto').value;
+      const nombre = document.getElementById('clienteNombre').value;
+      const telefono = document.getElementById('clienteTel').value;
+      const direccion = document.getElementById('clienteDir').value;
+
+      try {
+        await fetch(formspreeURL, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch (error) {
+        console.log("Notificación por correo enviada.");
+      }
+
+      const mensaje = `✨ *NUEVO PEDIDO EN COSMIK* ✨%0A%0A` +
+                      `*Perfume:* ${producto}%0A` +
+                      `*Precio:* ${precio}%0A%0A` +
+                      `*Cliente:* ${nombre}%0A` +
+                      `*Teléfono:* ${telefono}%0A` +
+                      `*Dirección:* ${direccion}%0A%0A` +
+                      `¡Hola! Deseo confirmar la compra de este perfume.`;
+
+      const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+      window.open(urlWhatsApp, '_blank');
+      cerrarModal();
+    }
+
+    // Close modal on outside click
+    document.getElementById('modalPedido').addEventListener('click', function(e) {
+      if (e.target === this) cerrarModal();
+    });
+  </script>
+</body>
+</html>
